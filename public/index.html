@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Triangle</title>
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+   </head>
+   <body>
+      <form id="triForm" action="#">
+         <div class="row">
+           <div class="four columns">
+             <label for="side1">Side One</label>
+             <input class="u-full-width" type="number" id="side1">
+           </div>
+           <div class="four columns">
+            <label for="side2">Side Two</label>
+            <input class="u-full-width" type="number"  id="side2">
+          </div>
+          <div class="four columns">
+            <label for="side3">Side Three</label>
+            <input class="u-full-width" type="number" id="side3">
+          </div>
+         </div>
+         <input class="button-primary" type="submit" value="Submit" onClick="requestTriangleApi()">
+       </form>
+
+       <script>
+         
+         function requestTriangleApi()
+         {
+
+            //This can easily be improved if you look around for form to fetch requests
+            var vale1 = document.getElementById("side1").value;
+            var vale2 = document.getElementById("side2").value;
+            var vale3 = document.getElementById("side3").value;
+
+            fetch('http://localhost:3000/api/triangle?side1=' + vale1 + "&side2=" + vale2 + "&side3= " + vale3)
+            .then(function(response) {
+               return response.json()
+            })
+            .then(function(response) {
+               //prints to chrome's console
+               console.log(response)
+
+               var isEquilateral = response.Triangle.Equilateral;
+               var isIsosceles = response.Triangle.Isosceles;
+               var isScalene = response.Triangle.Scalene;
+               
+               document.write("Equilateral " + isEquilateral);
+               document.write("Isosceles " + isIsosceles);
+               document.write("Scalene " + isScalene);
+         })
+         }
+       </script>
+   </body>
+</html>
